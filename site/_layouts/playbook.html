@@ -1,0 +1,80 @@
+---
+---
+<header>
+  {% include navigation.html %}
+</header>
+{% comment %} Assign data for easier access {% endcomment %}
+{% assign all_plays = site.data.play_data.plays %}
+{% assign all_sets = site.data.play_data.sets %}
+{% assign unit_sets = '' | split: '' %}
+{% assign page_unit_lower = page.unit | downcase %}
+{% for set in all_sets %}
+{% assign set_unit = set.unit | downcase %}
+  {% if set_unit == page_unit_lower  %}
+  {% assign unit_sets  = unit_sets  | push: set %}
+  {% endif %}
+{% endfor %}
+{% assign all_formations = site.data.play_data.formations %}
+{% assign unit_formations = '' | split: '' %}
+{% for formation in all_formations %}
+{% assign formation_unit = formation.unit | downcase %}
+  {% if formation_unit == page_unit_lower  %}
+  {% assign unit_formations  = unit_formations  | push: formation %}
+  {% endif %}
+{% endfor %}
+
+{% comment %} Filter plays for the current team and unit specified in the page's front matter {% endcomment %}
+{% assign team_plays = '' | split: '' %}
+{% for play in all_plays %}
+  {% assign team_match = false %}
+  {% if play.teams contains page.team %}
+    {% assign team_match = true %}
+  {% endif %}
+
+  {% assign play_unit_lower = play.unit | downcase %}
+  {% if team_match and play_unit_lower == page_unit_lower %}
+    {% assign team_plays = team_plays | push: play %}
+  {% endif %}
+{% endfor %}
+
+<h1>{{ page.team | capitalize }} - {{ page.unit }} playbook</h1>
+
+{% comment %} Group plays by play_set -> play_formation -> play_situation -> play_type {% endcomment %}
+{% assign plays_by_set = team_plays | group_by: "play_set" %}
+
+{% for set_group in plays_by_set %}
+  <h2>{{ set_group.name }}</h2>
+  {% assign current_set_name = set_group.name %}
+  {% assign set_obj = unit_sets | where_exp: "item", "item.set_name == current_set_name" | first %}
+  {% if set_obj and set_obj.set_description %}
+    <p><em>{{ set_obj.set_description }}</em></p>
+  {% endif %}
+
+  {% assign plays_by_formation = set_group.items | group_by: "play_formation" %}
+  {% for formation_group in plays_by_formation %}
+    <h3>{{ formation_group.name }}</h3>
+    {% assign current_formation_name = formation_group.name %}
+    {% assign formation_obj = unit_formations | where_exp: "item", "item.formation_name == current_formation_name" | first %}
+    {% if formation_obj and formation_obj.formation_description %}
+      <p><em>{{ formation_obj.formation_description }}</em></p>
+    {% endif %}
+
+    {% assign plays_by_situation = formation_group.items | group_by: "play_situation" %}
+    {% for situation_group in plays_by_situation %}
+      {% if situation_group.name != "" %}
+        <h4>{{ situation_group.name }}</h4>
+      {% endif %}
+
+      {% assign plays_by_type = situation_group.items | group_by: "play_type" %}
+      {% for type_group in plays_by_type %}
+        <h5>{{ type_group.name }}</h5>
+        
+        {% for play in type_group.items %}
+          <h6>{{ play.play_name }}</h6>
+          <p>{{ play.play_description }}</p>
+        {% endfor %}
+      {% endfor %}
+    {% endfor %}
+  {% endfor %}
+{% endfor %}
+{% assign plays_by_type = team_plays | group_by: "play_type" %}

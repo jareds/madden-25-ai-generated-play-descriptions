@@ -1,0 +1,176 @@
+{
+  "jaguars": [
+    "offense",
+    "defense"
+  ],
+  "spread": [
+    "offense"
+  ],
+  "all": [
+    "offense",
+    "defense"
+  ],
+  "vikings": [
+    "defense",
+    "offense"
+  ],
+  "raiders": [
+    "defense",
+    "offense"
+  ],
+  "46": [
+    "defense"
+  ],
+  "dolphins": [
+    "defense",
+    "offense"
+  ],
+  "chargers": [
+    "defense",
+    "offense"
+  ],
+  "giants": [
+    "defense",
+    "offense"
+  ],
+  "multiple-d": [
+    "defense"
+  ],
+  "bills": [
+    "defense",
+    "offense"
+  ],
+  "commanders": [
+    "defense",
+    "offense"
+  ],
+  "buccaneers": [
+    "defense",
+    "offense"
+  ],
+  "seahawks": [
+    "defense",
+    "offense"
+  ],
+  "cowboys": [
+    "defense",
+    "offense"
+  ],
+  "ravens": [
+    "defense",
+    "offense"
+  ],
+  "colts": [
+    "offense",
+    "defense"
+  ],
+  "patriots": [
+    "offense",
+    "defense"
+  ],
+  "texans": [
+    "offense",
+    "defense"
+  ],
+  "49ers": [
+    "offense",
+    "defense"
+  ],
+  "bengals": [
+    "offense",
+    "defense"
+  ],
+  "air-raid": [
+    "offense"
+  ],
+  "browns": [
+    "offense",
+    "defense"
+  ],
+  "eagles": [
+    "offense",
+    "defense"
+  ],
+  "run-n-gun": [
+    "offense"
+  ],
+  "cardinals": [
+    "offense",
+    "defense"
+  ],
+  "lions": [
+    "offense",
+    "defense"
+  ],
+  "panthers": [
+    "defense",
+    "offense"
+  ],
+  "broncos": [
+    "offense",
+    "defense"
+  ],
+  "run-heavy": [
+    "offense"
+  ],
+  "run-balanced": [
+    "offense"
+  ],
+  "run-and-shoot": [
+    "offense"
+  ],
+  "pistol": [
+    "offense"
+  ],
+  "bears": [
+    "offense",
+    "defense"
+  ],
+  "packers": [
+    "offense",
+    "defense"
+  ],
+  "rams": [
+    "offense",
+    "defense"
+  ],
+  "jets": [
+    "offense",
+    "defense"
+  ],
+  "balanced": [
+    "offense"
+  ],
+  "steelers": [
+    "defense",
+    "offense"
+  ],
+  "titans": [
+    "defense",
+    "offense"
+  ],
+  "falcons": [
+    "offense",
+    "defense"
+  ],
+  "saints": [
+    "offense",
+    "defense"
+  ],
+  "west-coast": [
+    "offense"
+  ],
+  "chiefs": [
+    "offense",
+    "defense"
+  ],
+  "4-3": [
+    "defense"
+  ],
+  "cover-2": [
+    "defense"
+  ],
+  "3-4": [
+    "defense"
+  ]
+}

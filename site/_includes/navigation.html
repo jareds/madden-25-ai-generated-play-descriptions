@@ -1,0 +1,85 @@
+<nav class="main-nav">
+  <ul>
+    <li class="nav-group">
+      <details>
+        <summary class="nav-group-title">Offense</summary>
+      <ul class="nav-group-items">
+        {% assign offense_teams = "" | split: "," %}
+        {% for team_entry in site.data.teams_units %}
+          {% assign team_name = team_entry[0] %}
+          {% assign units = team_entry[1] %}
+          {% if units contains "offense" %}
+            {% assign offense_teams = offense_teams | push: team_name %}
+          {% endif %}
+        {% endfor %}
+        {% assign sorted_offense_teams = offense_teams | sort_natural %}
+        {% for team_name in sorted_offense_teams %}
+          <li><a href="{{ site.baseurl }}/{{ team_name }}/offense/">{{ team_name | capitalize }}</a></li>
+        {% endfor %}
+      </ul>
+      </details>
+    </li>
+    <li class="nav-group">
+      <details>
+        <summary class="nav-group-title">Defense</summary>
+      <ul class="nav-group-items">
+        {% assign defense_teams = "" | split: "," %}
+        {% for team_entry in site.data.teams_units %}
+          {% assign team_name = team_entry[0] %}
+          {% assign units = team_entry[1] %}
+          {% if units contains "defense" %}
+            {% assign defense_teams = defense_teams | push: team_name %}
+          {% endif %}
+        {% endfor %}
+        {% assign sorted_defense_teams = defense_teams | sort_natural %}
+        {% for team_name in sorted_defense_teams %}
+          <li><a href="{{ site.baseurl }}/{{ team_name }}/defense/">{{ team_name | capitalize }}</a></li>
+        {% endfor %}
+      </ul>
+      </details>
+    </li>
+  </ul>
+</nav>
+
+<style>
+  .main-nav {
+    font-family: sans-serif;
+  }
+  .main-nav ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  .main-nav .nav-group {
+    margin-bottom: 1em;
+  }
+  .main-nav .nav-group-title {
+    font-weight: bold;
+    font-size: 1.2em;
+    text-decoration: none;
+    color: #333;
+    cursor: pointer; /* Ensure summary behaves like a link */
+  }
+  /* Hide default disclosure marker from summary */
+  .main-nav summary.nav-group-title::-webkit-details-marker { /* Chrome, Safari, Edge */
+    display: none;
+  }
+  .main-nav summary.nav-group-title::marker { /* Firefox */
+    display: none;
+  }
+  .main-nav summary.nav-group-title { /* Fallback for other browsers/older versions */
+    list-style-type: none; 
+  }
+  .main-nav .nav-group-items {
+    padding-left: 1em;
+  }
+  .main-nav .nav-group-items li {
+    margin-bottom: 0.3em;
+  }
+  .main-nav .nav-group-items a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  .main-nav .nav-group-items a:hover {
+    text-decoration: underline;
+  }
+</style>

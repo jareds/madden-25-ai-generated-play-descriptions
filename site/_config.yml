@@ -1,0 +1,6 @@
+# Basic Jekyll configuration
+title: Playbook
+description: Football Playbook generated with Jekyll
+exclude:
+  - .aider*
+  - default.nix
