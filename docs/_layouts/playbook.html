@@ -4,8 +4,8 @@
   {% include navigation.html %}
 </header>
 {% comment %} Assign data for easier access {% endcomment %}
-{% assign all_plays = site.data.play_data.plays %}
-{% assign all_sets = site.data.play_data.sets %}
+{% assign all_plays = site.data.play_data.plays | sort: "play_name" %}
+{% assign all_sets = site.data.play_data.sets | sort_natural: "set_name" %}
 {% assign unit_sets = '' | split: '' %}
 {% assign page_unit_lower = page.unit | downcase %}
 {% for set in all_sets %}
@@ -14,7 +14,7 @@
   {% assign unit_sets  = unit_sets  | push: set %}
   {% endif %}
 {% endfor %}
-{% assign all_formations = site.data.play_data.formations %}
+{% assign all_formations = site.data.play_data.formations | sort_natural: "formation_name" %}
 {% assign unit_formations = '' | split: '' %}
 {% for formation in all_formations %}
 {% assign formation_unit = formation.unit | downcase %}
@@ -40,7 +40,7 @@
 <h1>{{ page.team | capitalize }} - {{ page.unit }} playbook</h1>
 
 {% comment %} Group plays by play_set -> play_formation -> play_situation -> play_type {% endcomment %}
-{% assign plays_by_set = team_plays | group_by: "play_set" %}
+{% assign plays_by_set = team_plays | group_by: "play_set" | sort_natural: "name" %}
 
 {% for set_group in plays_by_set %}
   <h2>{{ set_group.name }}</h2>
@@ -50,7 +50,7 @@
     <p><em>{{ set_obj.set_description }}</em></p>
   {% endif %}
 
-  {% assign plays_by_formation = set_group.items | group_by: "play_formation" %}
+  {% assign plays_by_formation = set_group.items | group_by: "play_formation" | sort_natural: "name" %}
   {% for formation_group in plays_by_formation %}
     <h3>{{ formation_group.name }}</h3>
     {% assign current_formation_name = formation_group.name %}
@@ -59,17 +59,18 @@
       <p><em>{{ formation_obj.formation_description }}</em></p>
     {% endif %}
 
-    {% assign plays_by_situation = formation_group.items | group_by: "play_situation" %}
+    {% assign plays_by_situation = formation_group.items | group_by: "play_situation" | sort_natural: "name" %}
     {% for situation_group in plays_by_situation %}
       {% if situation_group.name != "" %}
         <h4>{{ situation_group.name }}</h4>
       {% endif %}
 
-      {% assign plays_by_type = situation_group.items | group_by: "play_type" %}
+      {% assign plays_by_type = situation_group.items | group_by: "play_type" | sort_natural: "name" %}
       {% for type_group in plays_by_type %}
         <h5>{{ type_group.name }}</h5>
         
-        {% for play in type_group.items %}
+        {% assign sorted_plays = type_group.items | sort_natural: "play_name" %}
+        {% for play in sorted_plays %}
           <h6>{{ play.play_name }}</h6>
           <p>{{ play.play_description }}</p>
         {% endfor %}
